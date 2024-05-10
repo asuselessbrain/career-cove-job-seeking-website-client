@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form"
-import "./login.css"
+import "../login/login.css"
 
-const Login = () => {
+const Register = () => {
 
     const {
         register,
@@ -11,7 +11,6 @@ const Login = () => {
     } = useForm()
 
     const onSubmit = (data) => console.log(data)
-
 
     return (
         <div className="min-h-[calc(100vh-152px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-cover bg my-10">
@@ -32,6 +31,12 @@ const Login = () => {
                 <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
                     <div className="rounded-md shadow-sm -space-y-px">
                         <div>
+                            <label className="text-slate-400">Name</label>
+                            <input {...register("name", { required: true })} type="text" className="block w-full rounded-lg border border-gray-300 my-2 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Enter Your Name" />
+                            {errors.name && <p className="text-red-500 text-sm mt-1">Name is required</p>}
+
+                        </div>
+                        <div>
                             <label className="text-slate-400">Email address</label>
                             <input {...register("email", { required: true })} type="email" className="block w-full rounded-lg border border-gray-300 my-2 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Email" />
                             {errors.email && <p className="text-red-500 text-sm mt-1">Email is required</p>}
@@ -39,13 +44,25 @@ const Login = () => {
                         </div>
                         <div>
                             <label className="text-slate-400">Password</label>
-                            <input {...register("password", { required: true })} type="password" required className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Password" />
+                            <input {...register("password", { required: true })} type="password" required className="my-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Password" />
                             {errors.password && <p className="text-red-500 text-sm mt-1">Password is required</p>}
+                        </div>
+
+                        <div>
+                            <label className="text-slate-400">Confirm Password</label>
+                            <input {...register("confirmPassword", { required: true })} type="password" required className="my-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Confirm Password" />
+                            {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">Confirm Password is required</p>}
+                        </div>
+
+                        <div>
+                            <label className="text-slate-400">Photo URL</label>
+                            <input {...register("photoUrl", { required: true })} type="text" required className="my-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Photo URL" />
+                            {errors.photoUrl && <p className="text-red-500 text-sm mt-1">Photo URL is required</p>}
                         </div>
                     </div>
 
                     <div>
-                        <input type="submit" value="Login" className="inline-flex w-full items-center justify-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400" />
+                        <input type="submit" value="Register" className="inline-flex w-full items-center justify-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400" />
                     </div>
                 </form>
 
@@ -65,7 +82,7 @@ const Login = () => {
                 </div>
                 <div className="text-center">
                     <p className="mt-2 text-sm text-gray-600">
-                        Do not have an account? <Link to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">Register here</Link>
+                        Already have an account? <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">Login Now</Link>
                     </p>
                 </div>
             </div>
@@ -73,4 +90,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;

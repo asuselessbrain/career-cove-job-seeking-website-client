@@ -1,8 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import "../login/login.css"
+import { useContext } from "react";
+import { AuthContext } from "../../authProvider/AuthProvider";
+import { toast } from 'react-toastify';
+import Swal from 'sweetalert2'
 
 const Register = () => {
+
+    const { signInUser, updateUser } = useContext(AuthContext);
+
 
     const {
         register,
@@ -10,7 +17,31 @@ const Register = () => {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => console.log(data)
+    const navigate = useNavigate();
+    const from = "/"
+
+    const onSubmit = (data) => {
+        const { email, password, name, photoUrl } = data;
+        // Check if passwords match
+        if (data.password !== data.confirmPassword) {
+            toast.error("Passwords do not match");
+            return;
+        }
+        signInUser(email, password)
+            .then((userCredential) => {
+                updateUser(name, photoUrl);
+                Swal.fire({
+                    title: "SignUp Successful",
+                    icon: "success"
+                  });
+
+                  navigate(from)
+            })
+            .catch((error) => {
+                toast.error(error.message);
+            });
+    }
+
 
     return (
         <div className="min-h-[calc(100vh-152px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-cover bg my-10">

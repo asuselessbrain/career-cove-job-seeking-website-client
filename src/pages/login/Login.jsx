@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import "./login.css"
+// import { useContext } from "react";
+// import { AuthContext } from "../../authProvider/AuthProvider";
 
 const Login = () => {
+
+    // const { signInUser } = useContext(AuthContext);
 
     const {
         register,

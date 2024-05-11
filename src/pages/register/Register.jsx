@@ -3,12 +3,11 @@ import { useForm } from "react-hook-form"
 import "../login/login.css"
 import { useContext } from "react";
 import { AuthContext } from "../../authProvider/AuthProvider";
-import { toast } from 'react-toastify';
 import Swal from 'sweetalert2'
 
 const Register = () => {
 
-    const { signInUser, updateUser } = useContext(AuthContext);
+    const { signUpUser, updateUser } = useContext(AuthContext);
 
 
     const {
@@ -24,10 +23,14 @@ const Register = () => {
         const { email, password, name, photoUrl } = data;
         // Check if passwords match
         if (data.password !== data.confirmPassword) {
-            toast.error("Passwords do not match");
+            Swal.fire({
+                title: "Password do not Match",
+                text: "Please try again",
+                icon: "warning"
+              });
             return;
         }
-        signInUser(email, password)
+        signUpUser(email, password)
             .then((userCredential) => {
                 updateUser(name, photoUrl);
                 Swal.fire({
@@ -38,7 +41,11 @@ const Register = () => {
                   navigate(from)
             })
             .catch((error) => {
-                toast.error(error.message);
+                Swal.fire({
+                    title: "Something went wrong",
+                    text: "Please try again",
+                    icon: "warning"
+                  });
             });
     }
 

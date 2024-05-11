@@ -1,12 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import "./login.css"
-// import { useContext } from "react";
-// import { AuthContext } from "../../authProvider/AuthProvider";
+import { useContext } from "react";
+import { AuthContext } from "../../authProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
 
-    // const { signInUser } = useContext(AuthContext);
+    const { loginUser } = useContext(AuthContext);
+
+    const navigaiton = useNavigate();
+    const location = useLocation();
+
+    const from = location?.state || "/";
 
     const {
         register,
@@ -14,7 +20,26 @@ const Login = () => {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => console.log(data)
+    const onSubmit = (data) => {
+        const { email, password } = data;
+
+        loginUser(email, password)
+            .then((userCredential) => {
+                Swal.fire({
+                    title: "Sign In Successful",
+                    icon: "success"
+                  });
+
+                  navigaiton(from)
+            })
+            .catch((error) => {
+                Swal.fire({
+                    title: "Something went wrong",
+                    text: "Please try again",
+                    icon: "warning"
+                });
+            });
+    }
 
 
     return (

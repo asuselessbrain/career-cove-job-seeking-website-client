@@ -1,51 +1,51 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form"
-import "./login.css"
+import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { useForm } from "react-hook-form";
+import "./login.css";
 import { useContext } from "react";
 import { AuthContext } from "../../authProvider/AuthProvider";
-import Swal from "sweetalert2";
+import { toast } from 'react-toastify';
 
 const Login = () => {
-
+    // Use context to access the authentication functions
     const { loginUser, loginWithGoogle } = useContext(AuthContext);
 
-    const navigaiton = useNavigate();
+    // Get the navigate function and current location
+    const navigate = useNavigate();
     const location = useLocation();
+    const from = location?.state || "/"
 
-    const from = location?.state || "/";
+    // Initialize react-hook-form
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm()
-
-    const onSubmit = (data) => {
+    // Handle form submission
+    const onSubmit = async (data) => {
         const { email, password } = data;
 
-        loginUser(email, password)
-            .then((userCredential) => {
-                Swal.fire({
-                    title: "Sign In Successful",
-                    icon: "success"
-                });
-
-                navigaiton(from)
-            })
-            .catch((error) => {
-                Swal.fire({
-                    title: "Something went wrong",
-                    text: "Please try again",
-                    icon: "warning"
-                });
-            });
+        // Call the loginUser function from context
+        try {
+            loginUser(email, password)
+            toast.success("Login successful");
+            navigate(from)
+        }
+        catch (error) {
+            toast.error("Error signing in. Please try again.");
+        }
     }
 
-    const handleSocialMediaLogin = (socialMediaLogin) => {
-        socialMediaLogin();
+    // Handle social media login
+
+    const handleLogin = (provider) => {
+        provider().then((result) => {
+            if (result.user) {
+                toast.success("Login successful");
+                navigate(from)
+            }
+        }).catch((error) => {
+            toast.error("Error signing in. Please try again.");
+        });
     }
-
-
     return (
         <div className="min-h-[calc(100vh-152px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-cover bg my-10">
             <div className="max-w-md w-full space-y-8 backdrop-blur-xl backdrop-brightness-150 p-6 rounded-xl">
@@ -68,7 +68,6 @@ const Login = () => {
                             <label className="text-slate-400">Email address</label>
                             <input {...register("email", { required: true })} type="email" className="block w-full rounded-lg border border-gray-300 my-2 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Email" />
                             {errors.email && <p className="text-red-500 text-sm mt-1">Email is required</p>}
-
                         </div>
                         <div>
                             <label className="text-slate-400">Password</label>
@@ -89,7 +88,7 @@ const Login = () => {
                 </div>
 
                 <div className="flex justify-center mt-4">
-                    <button onClick={() => handleSocialMediaLogin(loginWithGoogle)}
+                    <button onClick={() => handleLogin(loginWithGoogle)}
                         className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"><img
                             src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google"
                             className="h-[18px] w-[18px] " />Continue with

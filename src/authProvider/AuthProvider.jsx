@@ -1,61 +1,70 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
-import { auth } from "../firebse/firebase.init";
+import { 
+    createUserWithEmailAndPassword, 
+    onAuthStateChanged, 
+    signInWithEmailAndPassword, 
+    signInWithPopup, 
+    signOut, 
+    updateProfile 
+} from "firebase/auth";
+import { auth } from "../firebse/firebase.init"; // Corrected import
 import { GoogleAuthProvider } from "firebase/auth";
 
-export const AuthContext = createContext(null)
+export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
 
-const AuthProvider = ({children}) => {
-
-    const [user, setUser] = useState()
+const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const signUpUser = (email, password) => {
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
-    }
+    };
 
-    const loginUser =(email, password) => {
-        return signInWithEmailAndPassword(auth, email, password);
-    }
+    const loginUser = (email, password) => {
+        setLoading(true)
+        return signInWithEmailAndPassword(auth, email, password)
+    };
 
-    const loginWithGoogle =() =>{
+    const loginWithGoogle = () => {
+        setLoading(true)
         return signInWithPopup(auth, googleProvider)
-    }
+    };
 
     const updateUser = (name, photoUrl) => {
         return updateProfile(auth.currentUser, {
             displayName: name, photoURL: photoUrl
-          })
-    } 
+        })
+    };
 
     const logOut = () => {
+        setLoading(true)
         setUser(null)
-        return signOut(auth)
+        signOut(auth)
     }
-    useEffect(()=> 
-        {
-            const unsubscribe = onAuthStateChanged(auth, (user) => {
-                if (user) {
-                  setUser(user)
-                }
-              });
 
-              return () => unsubscribe()
-        }, [])
-    
-      console.log(user)
-      
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setUser(user);
+            setLoading(false);
+        });
 
-    const Info = {
+        return () => unsubscribe();
+    }, []);
+
+    const authInfo = {
         signUpUser,
         user,
         logOut,
         updateUser,
         loginUser,
-        loginWithGoogle
-    }
+        loginWithGoogle,
+        loading
+    };
+
     return (
-        <AuthContext.Provider value={Info}>
+        <AuthContext.Provider value={authInfo}>
             {children}
         </AuthContext.Provider>
     );

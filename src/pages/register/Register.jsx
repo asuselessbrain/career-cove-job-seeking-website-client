@@ -1,13 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import "../login/login.css"
 import { useContext } from "react";
 import { AuthContext } from "../../authProvider/AuthProvider";
-import Swal from 'sweetalert2'
+import { toast } from "react-toastify";
 
 const Register = () => {
 
-    const { signUpUser, updateUser } = useContext(AuthContext);
+    const { signUpUser, updateUser, loginWithGoogle } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state || "/"
 
 
     const {
@@ -16,37 +20,54 @@ const Register = () => {
         formState: { errors },
     } = useForm()
 
-    const navigate = useNavigate();
-    const from = "/"
-
-    const onSubmit = (data) => {
-        const { email, password, name, photoUrl } = data;
+    const onSubmit = async (data) => {
+        const { email, password, name, photoUrl, confirmPassword } = data;
         // Check if passwords match
-        if (data.password !== data.confirmPassword) {
-            Swal.fire({
-                title: "Password do not Match",
-                text: "Please try again",
-                icon: "warning"
-              });
-            return;
-        }
-        signUpUser(email, password)
-            .then((userCredential) => {
-                updateUser(name, photoUrl);
-                Swal.fire({
-                    title: "SignUp Successful",
-                    icon: "success"
-                  });
+        try {
+            const result = await signUpUser(email, password);
 
-                  navigate(from)
-            })
-            .catch((error) => {
-                Swal.fire({
-                    title: "Something went wrong",
-                    text: "Please try again",
-                    icon: "warning"
-                  });
-            });
+
+            updateUser(name, photoUrl)
+            toast.success("SignUp successful");
+            if (result.user) {
+                navigate(from);
+            }
+
+
+            console.log(result.user);
+
+            if (password !== confirmPassword) {
+                toast.error("Passwords do not match");
+                return;
+            }
+
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+            if (!passwordRegex.test(password)) {
+                toast.error("Password must have at least 6 characters, a capital & special letter, and a number");
+                return;
+            }
+
+            const emailRegex = /^\w+([.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (!emailRegex.test(email)) {
+                toast.error("Please enter a valid email");
+                return;
+            }
+
+        } catch (error) {
+            console.error("Error signing up:", error.message);
+            toast.error("Error signing up. Please try again.");
+        }
+    };
+
+    const handleLogin = (provider) => {
+        provider().then((result) => {
+            if (result.user) {
+                toast.success("Login successful");
+                navigate(from)
+            }
+        }).catch((error) => {
+            toast.error("Error signing in. Please try again.");
+        });
     }
 
 
@@ -111,7 +132,7 @@ const Register = () => {
                 </div>
 
                 <div className="flex justify-center mt-4">
-                    <button
+                    <button onClick={() => handleLogin(loginWithGoogle)}
                         className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"><img
                             src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google"
                             className="h-[18px] w-[18px] " />Continue with

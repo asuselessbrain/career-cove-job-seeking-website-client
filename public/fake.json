@@ -1,0 +1,50 @@
+[
+  {
+    "customerName": "John Doe",
+    "customerImage": "https://i.ibb.co/cvvZ6pW/confident-attractive-caucasian-guy-beige-pullon-smiling-broadly-while-standing-against-gray.jpg",
+    "review": "Career Cove is an amazing platform! It helped me find my dream job quickly and efficiently. The interface is user-friendly, and the job listings are always up-to-date.",
+    "rating": 5
+  },
+  {
+    "customerName": "Jane Smith",
+    "customerImage": "https://i.ibb.co/LnsRYhW/cheerful-indian-businessman-smiling-closeup-portrait-jobs-career-campaign.jpg",
+    "review": "I've had a great experience using Career Cove. The website is well-designed, and I appreciate the personalized job recommendations. It's made my job search much easier.",
+    "rating": 4
+  },
+  {
+    "customerName": "Mike Johnson",
+    "customerImage": "https://i.ibb.co/2ZtnBpk/portrait-handsome-smiling-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-elegant-suit-fas.jpg",
+    "review": "Career Cove exceeded my expectations. The search filters are robust, allowing me to narrow down job listings based on my preferences. I highly recommend it to anyone looking for a job.",
+    "rating": 5
+  },
+  {
+    "customerName": "Emily Brown",
+    "customerImage": "https://i.ibb.co/fpq8qq4/woman-8552807-1280.jpg",
+    "review": "I've been using Career Cove for a few months now, and it's been a game-changer for me. The job alerts keep me updated on new opportunities, and I appreciate the variety of job listings available.",
+    "rating": 4
+  },
+  {
+    "customerName": "Alex Wilson",
+    "customerImage": "https://i.ibb.co/MftCYYs/young-bearded-man-with-striped-shirt-273609-5677.jpg",
+    "review": "Career Cove has been instrumental in my job search. The platform is intuitive, and I love the feature that allows me to save job listings for later. It's helped me stay organized.",
+    "rating": 5
+  },
+  {
+    "customerName": "Sarah Lee",
+    "customerImage": "https://i.ibb.co/SQ5vkCY/young-beautiful-woman-pink-warm-sweater-natural-look-smiling-portrait-isolated-long-hair-285396-896.jpg",
+    "review": "I stumbled upon Career Cove while searching for job opportunities online, and I'm glad I did. It's easy to navigate, and I appreciate the option to filter job listings by location and industry.",
+    "rating": 4
+  },
+  {
+    "customerName": "David Clark",
+    "customerImage": "https://i.ibb.co/80CZQrx/360-F-214746128-31-Jkea-P6r-U0-Nzzzd-FC4kh-Gkmqc8noe6h.jpg",
+    "review": "Career Cove has been a valuable resource in my job search. The website is user-friendly, and the job descriptions are comprehensive. I've already recommended it to friends and colleagues.",
+    "rating": 5
+  },
+  {
+    "customerName": "Emma Taylor",
+    "customerImage": "https://i.ibb.co/mDcK7ZY/attractive-young-woman-enjoying-her-time-outside-park-104603-4529.jpg",
+    "review": "Career Cove has helped me find several job opportunities that align with my skills and interests. The platform is reliable, and I appreciate the timely notifications when new jobs are posted.",
+    "rating": 4
+  }
+]

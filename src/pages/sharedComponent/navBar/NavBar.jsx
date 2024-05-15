@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion"; // Import motion from Framer Motion
 import logo from "../../../assets/images/logo.png";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../authProvider/AuthProvider";
 
 const NavBar = () => {
@@ -68,13 +68,13 @@ const NavBar = () => {
                     {/* Navigation Links (Desktop) */}
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-center space-x-4">
-                            <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                            <Link to="/all-jobs" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">All Jobs</Link>
-                            <Link to="/applied-jobs" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Applied Jobs</Link>
-                            <Link to="/add-job" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Add Job</Link>
-                            <Link to="/my-jobs" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">My Jobs</Link>
-                            <Link to="/blogs" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Blogs</Link>
-                            <Link to="/user-profile" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">User Profile</Link>
+                        <NavLink to="/" className={({ isActive }) => isActive ? "text-white bg-gray-700 border-b-2 border-gray-200 px-3 py-2 rounded-md text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>Home</NavLink>
+                            <NavLink to="/all-jobs" className={({ isActive }) => isActive ? "text-white bg-gray-700 border-b-2 border-gray-200 px-3 py-2 rounded-md text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>All Jobs</NavLink>
+                            <NavLink to="/applied-jobs" className={({ isActive }) => isActive ? "text-white bg-gray-700 border-b-2 border-gray-200 px-3 py-2 rounded-md text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>Applied Jobs</NavLink>
+                            <NavLink to="/add-job" className={({ isActive }) => isActive ? "text-white bg-gray-700 border-b-2 border-gray-200 px-3 py-2 rounded-md text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>Add Job</NavLink>
+                            <NavLink to="/my-jobs" className={({ isActive }) => isActive ? "text-white bg-gray-700 border-b-2 border-gray-200 px-3 py-2 rounded-md text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>My Jobs</NavLink>
+                            <NavLink to="/blogs" className={({ isActive }) => isActive ? "text-white bg-gray-700 border-b-2 border-gray-200 px-3 py-2 rounded-md text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>Blogs</NavLink>
+                            <NavLink to="/user-profile" className={({ isActive }) => isActive ? "text-white bg-gray-700 border-b-2 border-gray-200 px-3 py-2 rounded-md text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>User Profile</NavLink>
                             {/* Conditional rendering for logged in user */}
                             {user ? (
                                 <div className="dropdown dropdown-end">
@@ -117,13 +117,13 @@ const NavBar = () => {
                     transition={{ duration: 1 }}
                 >
                     <div className="px-2 pt-2 pb-3 space-y-1 flex flex-col sm:px-3">
-                        <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                        <Link to="/all-jobs" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">All Jobs</Link>
-                        <Link to="/applied-jobs" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Applied Jobs</Link>
-                        <Link to="/add-job" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Add A Job</Link>
-                        <Link to="/my-jobs" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">My Jobs</Link>
-                        <Link to="/blogs" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Blogs</Link>
-                        <Link to="/user-profile" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">User Profile</Link>
+                    <NavLink to="/" className={({ isActive }) => isActive ? "text-white bg-gray-700 border-b-2 border-gray-200 px-3 py-2 rounded-md text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>Home</NavLink>
+                            <NavLink to="/all-jobs" className={({ isActive }) => isActive ? "text-white bg-gray-700 border-b-2 border-gray-200 px-3 py-2 rounded-md text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>All Jobs</NavLink>
+                            <NavLink to="/applied-jobs" className={({ isActive }) => isActive ? "text-white bg-gray-700 border-b-2 border-gray-200 px-3 py-2 rounded-md text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>Applied Jobs</NavLink>
+                            <NavLink to="/add-job" className={({ isActive }) => isActive ? "text-white bg-gray-700 border-b-2 border-gray-200 px-3 py-2 rounded-md text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>Add Job</NavLink>
+                            <NavLink to="/my-jobs" className={({ isActive }) => isActive ? "text-white bg-gray-700 border-b-2 border-gray-200 px-3 py-2 rounded-md text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>My Jobs</NavLink>
+                            <NavLink to="/blogs" className={({ isActive }) => isActive ? "text-white bg-gray-700 border-b-2 border-gray-200 px-3 py-2 rounded-md text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>Blogs</NavLink>
+                            <NavLink to="/user-profile" className={({ isActive }) => isActive ? "text-white bg-gray-700 border-b-2 border-gray-200 px-3 py-2 rounded-md text-sm font-medium" : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"}>User Profile</NavLink>
                         {user ? (
                             <Link className="text-white bg-red-500 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onClick={logOut}>Logout</Link>
                         ) : (
